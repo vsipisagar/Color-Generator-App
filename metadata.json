@@ -1,0 +1,5 @@
+{
+  "name": "OKLCH Color Harmony Generator - copy",
+  "description": "An advanced color wheel generator that uses the perceptually uniform OKLCH color space for creating harmonious color palettes. Select a base color, choose a classical harmony rule, and export the generated palette in sRGB/HEX.",
+  "requestFramePermissions": []
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colorful Wallet Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Font Awesome Icons (Readymade Icon Pack) -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js" integrity="sha512-u3fPA7V8qQmhBPNT5quvaXVa1mnnLSXUep5PS1qo5NRzHwG19aHmNJnj1Q8hpA/iksyLKGVihMDkNFKU2gsZxw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- Configure Tailwind to use the 'Inter' font and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-blue': '#4F46E5', // Indigo 600
+                        'accent-green': '#10B981', // Emerald 500
+                        'accent-pink': '#EC4899', // Pink 500
+                        'neutral-light': '#F9FAFB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Load Inter font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* Custom scrollbar for better mobile feel, though often hidden on actual mobile */
+        .overflow-y-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .overflow-y-scroll::-webkit-scrollbar-thumb {
+            background-color: #d1d5db; /* gray-300 */
+            border-radius: 9999px;
+        }
+        .overflow-y-scroll::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
+
+        /* Gradient for the main card (more intense) */
+        .balance-card-gradient {
+            background-image: linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%);
+            /* indigo-500 -> violet-500 -> pink-500 */
+            box-shadow: 0 10px 15px -3px rgba(109, 40, 217, 0.4), 0 4px 6px -2px rgba(109, 40, 217, 0.2);
+        }
+
+        /* Custom animation for the activity chart placeholder */
+        @keyframes pulse-fill {
+            0%, 100% { height: 10%; }
+            20% { height: 70%; }
+            40% { height: 30%; }
+            60% { height: 90%; }
+            80% { height: 50%; }
+        }
+
+        .chart-bar {
+            animation: pulse-fill 4s ease-in-out infinite alternate;
+        }
+
+        .chart-bar:nth-child(2) { animation-delay: 0.2s; height: 50%; }
+        .chart-bar:nth-child(3) { animation-delay: 0.4s; height: 20%; }
+        .chart-bar:nth-child(4) { animation-delay: 0.6s; height: 60%; }
+        .chart-bar:nth-child(5) { animation-delay: 0.8s; height: 40%; }
+        .chart-bar:nth-child(6) { animation-delay: 1.0s; height: 80%; }
+        .chart-bar:nth-child(7) { animation-delay: 1.2s; height: 15%; }
+    </style>
+</head>
+
+<body class="bg-neutral-light min-h-screen font-sans">
+
+    <!-- Mobile Screen Container -->
+    <div class="max-w-md mx-auto bg-white shadow-xl min-h-screen flex flex-col">
+
+        <!-- Header -->
+        <header class="p-5 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white z-10">
+            <h1 class="text-xl font-bold text-gray-900">My Wallet</h1>
+            <button class="w-10 h-10 rounded-full bg-accent-green text-white flex items-center justify-center shadow-md">
+                <span class="font-semibold text-sm">JS</span>
+            </button>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow p-4 space-y-6 overflow-y-scroll pb-24">
+
+            <!-- 1. Total Balance Card (Highly Visual) -->
+            <div class="balance-card-gradient text-white p-6 rounded-3xl shadow-2xl relative overflow-hidden">
+                <!-- Card Background Pattern (Subtle Visual Element) -->
+                <div class="absolute inset-0 opacity-10">
+                    <svg class="h-full w-full" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 100 100">
+                        <circle cx="20" cy="20" r="15" stroke="currentColor" stroke-width="2"/>
+                        <circle cx="80" cy="50" r="10" stroke="currentColor" stroke-width="2"/>
+                        <rect x="5" y="80" width="10" height="10" fill="currentColor"/>
+                    </svg>
+                </div>
+
+                <div class="relative z-10">
+                    <p class="text-sm opacity-70 mb-1">Total Balance</p>
+                    <h2 class="text-4xl font-extrabold mb-4">$14,567<span class="text-2xl font-light">.89</span></h2>
+
+                    <!-- Mini Chart Placeholder (Visual Element) -->
+                    <div class="flex h-12 space-x-1 mt-6 items-end justify-end">
+                        <div class="chart-bar w-1.5 bg-white/70 rounded-t-sm" style="height: 40%;"></div>
+                        <div class="chart-bar w-1.5 bg-white/70 rounded-t-sm" style="height: 80%;"></div>
+                        <div class="chart-bar w-1.5 bg-white/70 rounded-t-sm" style="height: 30%;"></div>
+                        <div class="chart-bar w-1.5 bg-white/70 rounded-t-sm" style="height: 90%;"></div>
+                        <div class="chart-bar w-1.5 bg-white/70 rounded-t-sm" style="height: 50%;"></div>
+                        <div class="chart-bar w-1.5 bg-white/70 rounded-t-sm" style="height: 70%;"></div>
+                        <div class="chart-bar w-1.5 bg-white/70 rounded-t-sm" style="height: 20%;"></div>
+                    </div>
+
+                    <p class="text-xs text-right mt-2 opacity-80">+5.2% Today</p>
+                </div>
+            </div>
+
+            <!-- 2. Quick Actions (Colorful Buttons) -->
+            <div class="flex justify-between items-center py-2">
+                <!-- Action 1: Send -->
+                <button class="flex flex-col items-center space-y-1 w-1/4">
+                    <!-- FIX: Added w-14 h-14 and centering -->
+                    <div class="w-14 h-14 rounded-full bg-indigo-100 text-primary-blue shadow-lg transition duration-200 hover:bg-indigo-200 flex items-center justify-center">
+                        <i class="fas fa-paper-plane text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Send</span>
+                </button>
+
+                <!-- Action 2: Request/Receive -->
+                <button class="flex flex-col items-center space-y-1 w-1/4">
+                    <!-- FIX: Added w-14 h-14 and centering -->
+                    <div class="w-14 h-14 rounded-full bg-accent-green/20 text-accent-green shadow-lg transition duration-200 hover:bg-accent-green/30 flex items-center justify-center">
+                        <i class="fas fa-circle-arrow-down text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Receive</span>
+                </button>
+
+                <!-- Action 3: Cards -->
+                <button class="flex flex-col items-center space-y-1 w-1/4">
+                    <!-- FIX: Added w-14 h-14 and centering -->
+                    <div class="w-14 h-14 rounded-full bg-yellow-100 text-yellow-600 shadow-lg transition duration-200 hover:bg-yellow-200 flex items-center justify-center">
+                        <i class="fas fa-credit-card text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Cards</span>
+                </button>
+
+                <!-- Action 4: Insights -->
+                <button class="flex flex-col items-center space-y-1 w-1/4">
+                    <!-- FIX: Added w-14 h-14 and centering -->
+                    <div class="w-14 h-14 rounded-full bg-accent-pink/20 text-accent-pink shadow-lg transition duration-200 hover:bg-accent-pink/30 flex items-center justify-center">
+                        <i class="fas fa-chart-simple text-2xl"></i>
+                    </div>
+                    <span class="text-sm font-medium text-gray-700">Insights</span>
+                </button>
+            </div>
+
+            <!-- 3. Recent Transactions (Visual List) -->
+            <div class="space-y-4">
+                <h3 class="text-lg font-semibold text-gray-800 flex justify-between items-center">
+                    Recent Activity
+                    <a href="#" class="text-xs text-primary-blue font-medium">See All</a>
+                </h3>
+
+                <!-- Transaction Item 1: Income (Green Accent) -->
+                <div class="flex items-center justify-between p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition duration-150">
+                    <div class="flex items-center space-x-3">
+                        <!-- FIX: Added w-10 h-10 and centering -->
+                        <div class="w-10 h-10 rounded-full bg-accent-green/20 text-accent-green flex items-center justify-center">
+                            <i class="fas fa-sack-dollar text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">Salary Deposit</p>
+                            <p class="text-xs text-gray-500">Today, 10:30 AM</p>
+                        </div>
+                    </div>
+                    <p class="font-semibold text-accent-green">+$2,100.00</p>
+                </div>
+
+                <!-- Transaction Item 2: Expense (Red Accent) -->
+                <div class="flex items-center justify-between p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition duration-150">
+                    <div class="flex items-center space-x-3">
+                        <!-- FIX: Added w-10 h-10 and centering -->
+                        <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center">
+                            <i class="fas fa-bag-shopping text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">Online Shopping</p>
+                            <p class="text-xs text-gray-500">Yesterday, 4:15 PM</p>
+                        </div>
+                    </div>
+                    <p class="font-semibold text-red-600">-$125.50</p>
+                </div>
+
+                <!-- Transaction Item 3: Transfer (Blue Accent) -->
+                <div class="flex items-center justify-between p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition duration-150">
+                    <div class="flex items-center space-x-3">
+                        <!-- FIX: Added w-10 h-10 and centering -->
+                        <div class="w-10 h-10 rounded-full bg-primary-blue/20 text-primary-blue flex items-center justify-center">
+                            <i class="fas fa-arrow-right-arrow-left text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">Bank Transfer</p>
+                            <p class="text-xs text-gray-500">2 days ago</p>
+                        </div>
+                    </div>
+                    <p class="font-semibold text-red-600">-$450.00</p>
+                </div>
+
+                <!-- Transaction Item 4: Subscription (Purple Accent) -->
+                <div class="flex items-center justify-between p-3 bg-white rounded-xl shadow-sm hover:shadow-md transition duration-150">
+                    <div class="flex items-center space-x-3">
+                        <!-- FIX: Added w-10 h-10 and centering -->
+                        <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center">
+                            <i class="fas fa-clapperboard text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium text-gray-800">Streaming Service</p>
+                            <p class="text-xs text-gray-500">3 days ago</p>
+                        </div>
+                    </div>
+                    <p class="font-semibold text-red-600">-$15.99</p>
+                </div>
+            </div>
+
+            <!-- Spacer for Footer Clearance -->
+            <div class="h-4"></div>
+
+        </main>
+
+        <!-- Fixed Bottom Navigation (Visual Element) -->
+        <footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200 shadow-2xl p-3 z-20 rounded-t-3xl">
+            <nav class="flex justify-around items-center">
+                <!-- Nav Item 1: Home (Active) -->
+                <a href="#" class="flex flex-col items-center text-primary-blue transition duration-150">
+                    <i class="fas fa-house w-6 h-6"></i>
+                    <span class="text-xs mt-1 font-medium">Home</span>
+                </a>
+
+                <!-- Nav Item 2: Budget -->
+                <a href="#" class="flex flex-col items-center text-gray-400 hover:text-gray-600 transition duration-150">
+                    <i class="fas fa-chart-pie w-6 h-6"></i>
+                    <span class="text-xs mt-1 font-medium">Budget</span>
+                </a>
+
+                <!-- Nav Item 3: Center Action (Big Button) - Circle is already fixed -->
+                <button class="w-14 h-14 rounded-full -mt-7 bg-accent-green text-white shadow-xl flex items-center justify-center hover:shadow-2xl transition duration-200 transform hover:scale-105">
+                    <i class="fas fa-plus text-xl"></i>
+                </button>
+
+                <!-- Nav Item 4: History -->
+                <a href="#" class="flex flex-col items-center text-gray-400 hover:text-gray-600 transition duration-150">
+                    <i class="fas fa-clock-rotate-left w-6 h-6"></i>
+                    <span class="text-xs mt-1 font-medium">History</span>
+                </a>
+
+                <!-- Nav Item 5: Settings -->
+                <a href="#" class="flex flex-col items-center text-gray-400 hover:text-gray-600 transition duration-150">
+                    <i class="fas fa-gear w-6 h-6"></i>
+                    <span class="text-xs mt-1 font-medium">Settings</span>
+                </a>
+            </nav>
+        </footer>
+
+    </div>
+</body>
+</html>
